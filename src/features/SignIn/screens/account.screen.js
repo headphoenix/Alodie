@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StatusBar, Image } from "react-native";
+import { View, Text, StatusBar, Image, TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
 
 
-export const SignIn = ({ navigation }) => {
+export const AccountScreen = ({ navigation }) => {
     const theme = useTheme();
 
     return (
@@ -49,6 +49,7 @@ export const SignIn = ({ navigation }) => {
                         </View>
                     </View>
                     <View>
+                        <TouchableOpacity  onPress={() => navigation.navigate("Login")}>
                         <View style={{
                             height: 50,
                             width: 190,
@@ -64,6 +65,10 @@ export const SignIn = ({ navigation }) => {
                             }}>Sign In</Text>
                             <Image style={{ marginLeft: 8 }} source={require('../../../../assets/images/right_arrow.png')} />
                         </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                        onPress={() => navigation.navigate("Register")}
+                        >
                         <View style={{
                             alignItems: 'center',
                             marginTop: 30,
@@ -74,6 +79,7 @@ export const SignIn = ({ navigation }) => {
                                 color: '#1B1D28'
                             }}>Create an account</Text>
                         </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

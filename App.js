@@ -1,4 +1,4 @@
-import { Navigation } from "./src/infrastructure/navigation";
+import { Navigation } from "./src/infrastructure/navigation/index";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React from "react";
 import { Text } from "react-native";
@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components/native";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import {
   useFonts as useOswald,
@@ -36,7 +37,9 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <AuthenticationContextProvider>
                 <Navigation />
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>

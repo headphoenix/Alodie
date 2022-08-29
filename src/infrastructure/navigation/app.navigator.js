@@ -3,7 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { Home } from "../../features/home/screens/home.screen"
 import { SafeArea } from "../../components/utility/safe-area.component";
-const Tab = createBottomTabNavigator();
+
+
+
 import { Text } from "react-native";
 const TAB_ICON = {
   Home: "md-home",
@@ -11,6 +13,7 @@ const TAB_ICON = {
   Activity: "md-settings",
 };
 
+const Tab = createBottomTabNavigator();
 
 const Cards = () => (
   <SafeArea>
