@@ -4,7 +4,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { dummyData } from "../../../Mock/index"
 
-export const Home = () => {
+export const Home = ({navigation}) => {
     const theme = useTheme()
     return (
         <View
@@ -63,6 +63,8 @@ export const Home = () => {
             {/* Send Money */}
             <HeaderSection style={{ marginTop: 40 }}>
                 <Text style={{fontSize: 16, color: '#3A4276'}}>Send Money</Text>
+                <TouchableOpacity
+                onPress={() => navigation.navigate("Scanner")}>
                 <Image source={require('../../../../assets/images/scan.png')} 
                    style={{
                     width: 24,
@@ -70,6 +72,7 @@ export const Home = () => {
                     tintColor: '#3A4276',
                    }}
                    />
+                   </TouchableOpacity>
             </HeaderSection>
             <View>
                 <FlatList

@@ -4,9 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Home } from "../../features/home/screens/home.screen"
 import { SafeArea } from "../../components/utility/safe-area.component";
 
+import { AuthenticationContext } from "../../services/authentication/authentication.context"
 
 
-import { Text } from "react-native";
+
+import { Text, TouchableOpacity } from "react-native";
+import { HomeNavigator } from "./home.navigator";
 const TAB_ICON = {
   Home: "md-home",
   Cards: "md-card",
@@ -21,11 +24,14 @@ const Cards = () => (
   </SafeArea>
 );
 
-const Activity = () => (
+const Activity = () => {
+  const { onLogout, user } = useContext(AuthenticationContext);
+  return (
   <SafeArea>
     <Text>Map</Text>
+    <TouchableOpacity onPress={() => onLogout()}>Log Out</TouchableOpacity>
   </SafeArea>
-);
+)};
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
@@ -44,7 +50,7 @@ export const AppNavigator = () => (
         inactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Cards" component={Cards} />
       <Tab.Screen name="Activity" component={Activity} />
     </Tab.Navigator>
