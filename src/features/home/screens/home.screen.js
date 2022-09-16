@@ -1,19 +1,77 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList,Platform, StatusBar,ScrollView } from 'react-native';
 import styled, { useTheme } from 'styled-components/native'
-
+import { SafeArea } from "../../../components/utility/safe-area.component"
+import * as ImagePicker from 'expo-image-picker';
 import { dummyData } from "../../../Mock/index"
+import callGoogleVisionAsync from '../../Scan/screens/helperFunction';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
+import * as ImageManipulator from 'expo-image-manipulator';
+
+import { Dimensions, Button, ImageBackground } from 'react-native'
+import { ImageManipulatorView } from 'expo-image-manipulator-view'
+
+import { useNavigation } from '@react-navigation/native';
+
+
+
+const DEFAULT_HEIGHT = 500;
+const DEFAULT_WITH = 600;
+const defaultPickerOptions = {
+  base64: true,
+};
 
 export const Home = ({navigation}) => {
+ const [image, setImage] = useState(null);
+  const [text, setText] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+  const { width, height } = Dimensions.get('window');
+
+  const [editorVisible, setEditorVisible] = useState(false);
+
+  //const navigate = useNavigation();
+
+  const onSubmit= callGoogleVisionAsync;
+
+  const onToggleModal = () => {
+    setIsVisible(!isVisible)
+};
+    
+  
+  const recognizeFromCamera = async (options = defaultPickerOptions) => {
+        try {
+          const result = await ImagePicker.launchCameraAsync({ base64: true, allowsEditing: true });
+          // const finalResult = await ImageManipulator.manipulateAsync(result.uri, [ {crop: {
+          //   height: 200, 
+          //   originX: 200, 
+          //   originY: 200, 
+          //   width: 200
+          // }}], { compress: 1, format: SaveFormat.PNG })
+          // console.log(finalResult);
+          setImage(result.uri)
+          setText("Loading..");
+          const responseData = await onSubmit(result.base64);
+          console.log(responseData.text)
+          setText(responseData.text);
+          // setImgSrc({uri: image.path});
+          // await recognizeTextFromImage(image.path);
+        } catch (err) {
+          if (err.message !== 'Could not get image') {
+            console.error(err);
+          }
+        }
+      };
+
+
     const theme = useTheme()
     return (
+        <SafeArea>
         <View
             style={{
                 flex: 1,
                 // justifyContent: 'center',
                 // alignItems: 'center',
                 backgroundColor: "#FFFFFF",
-                paddingTop: StatusBar.currentHeight,
             }}
         >
             {/* Header Section */}
@@ -64,7 +122,7 @@ export const Home = ({navigation}) => {
             <HeaderSection style={{ marginTop: 40 }}>
                 <Text style={{fontSize: 16, color: '#3A4276'}}>Send Money</Text>
                 <TouchableOpacity
-                onPress={() => navigation.navigate("Scanner")}>
+                onPress={recognizeFromCamera}>
                 <Image source={require('../../../../assets/images/scan.png')} 
                    style={{
                     width: 24,
@@ -74,6 +132,7 @@ export const Home = ({navigation}) => {
                    />
                    </TouchableOpacity>
             </HeaderSection>
+            { image && navigation.navigate("Send", { text: text})}
             <View>
                 <FlatList
                   keyExtractor={(item) => item.id}
@@ -198,6 +257,7 @@ export const Home = ({navigation}) => {
             </View>
             </ScrollView>
         </View>
+        </SafeArea>
     );
 };
 

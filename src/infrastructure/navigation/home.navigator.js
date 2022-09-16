@@ -5,6 +5,7 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 
 import { ScannerScreen } from "../../features/Scan/screens/scan.screen";
 import { Home } from "../../features/home/screens/home.screen";
+import { Send } from "../../features/Scan/screens/send.screen"
 
 const HomeStack = createStackNavigator();
 
@@ -19,8 +20,8 @@ export const HomeNavigator = () => {
               component={Home}
             />
              <HomeStack.Screen 
-              name='Scanner'
-              component={ScannerScreen}
+              name='Send'
+              component={Send}
             />
         </HomeStack.Navigator>
     )
