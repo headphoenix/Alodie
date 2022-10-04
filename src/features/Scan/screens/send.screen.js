@@ -193,8 +193,8 @@ export const Send = ({ navigation, route }) => {
                 paddingTop: 5,
               }}
               placeholderTextColor="gray"
-              defaultValue={amount}
-              //  onChangeText={(text) => setAmount(text)}
+              defaultValue={reference}
+              onChangeText={(text) => setReference(text)}
             />
           </View>
           <Spacer position="left" size="large">

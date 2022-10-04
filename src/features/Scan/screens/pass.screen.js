@@ -135,8 +135,7 @@ export const Pass = ({ navigation }) => {
                 textBody: "Your transaction was successful",
                 buttonText: "Go to home",
                 callback: () => navigation.navigate("Home"),
-              })
-            }
+              })}
           >
             <Text style={styles.nextButtonText}>Confirm</Text>
           </TouchableOpacity>

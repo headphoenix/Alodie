@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyD4JT06u_nEe8PaZr5yntL6mCcEu721Ca0";
+const API_KEY = "c5592301e94f96a794a3eb98e56aaedfd903d3d6";
 const API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
 
 function generateBody(image) {
